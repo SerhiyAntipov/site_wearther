@@ -1,5 +1,5 @@
 let weatherHour;
-let btnGetWeather = document.querySelector('.btn-search');
+let btnGetWeather = document.querySelector('.search-btn');
 
 let cityName = document.querySelector('.city-name');
 let temperature = document.querySelector('.temperature');
@@ -9,7 +9,7 @@ let wind = document.querySelector('.wind');
 let sunrise = document.querySelector('.sunrise');
 let sunset = document.querySelector('.sunset');
 let yourCities;
-let nameCity = document.querySelector('.name-city');
+let searchCity = document.querySelector('.search-city');
 
 let defaultCity = ['lviv']
 let dataCitySet = new Set(defaultCity);
@@ -26,20 +26,20 @@ if (localStorage.getItem("city-name") === null || localStorage["city-name"] === 
 }
 
 // get weather =========================
-function xhttpRequesrtWeather(nameCityValue) {
+function xhttpRequesrtWeather(searchCityValue) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.response);
-            callbackWeather(response, nameCityValue)
+            callbackWeather(response, searchCityValue)
         }
     };
-    xhttp.open('GET', `http://api.openweathermap.org/data/2.5/weather?q=${nameCityValue}&appid=0bf66710f118cd8dbd8d4055849f69aa`, true);
+    xhttp.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${searchCityValue}&appid=0bf66710f118cd8dbd8d4055849f69aa`, true);
     xhttp.send();
 };
 
-function callbackWeather(response, nameCityValue) {
-    dataCitySet.add(nameCityValue.toLowerCase())
+function callbackWeather(response, searchCityValue) {
+    dataCitySet.add(searchCityValue.toLowerCase())
     localStorage.setItem("city-name", JSON.stringify(Array.from(dataCitySet)));
     fillCityWeather(response);
     fetchWeatherHour(response.id)
@@ -60,9 +60,9 @@ function fillCityWeather(response) {
 
 // search city ========================
 btnGetWeather.addEventListener('click', function () {
-    nameCityValue = document.querySelector('.name-city').value;
-    if (nameCityValue.length > 2) {
-        xhttpRequesrtWeather(nameCityValue)
+    searchCityValue = document.querySelector('.name-city').value;
+    if (searchCityValue.length > 2) {
+        xhttpRequesrtWeather(searchCityValue)
     }
 })
 
@@ -100,7 +100,6 @@ function selectCities(listSelectedCities) {
     })
 }
 
-
 // dell select cities ==============
 function dellSelectCities(dellCity, event) {
     console.log(dellCity)
@@ -117,7 +116,7 @@ function dellSelectCities(dellCity, event) {
 }
 
 // search city active ==============
-nameCity.addEventListener('click', function () {
+searchCity.addEventListener('click', function () {
     if (document.querySelector('.selected-city').classList.contains('visible-city-list') == true) {
         document.querySelector('.selected-city').classList.remove('visible-city-list');
     }
@@ -125,7 +124,7 @@ nameCity.addEventListener('click', function () {
 
 // get weather 5 day ====================
 function fetchWeatherHour(cityId) {
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=0bf66710f118cd8dbd8d4055849f69aa`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=0bf66710f118cd8dbd8d4055849f69aa`)
         .then(function (response) {
             return response.json()
         })

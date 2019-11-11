@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Author: Serhiy Antipov">
     <title>Weather</title>
     <link rel="shortcut icon" href="img/favicon.svg" type="image/png">
     <link rel="stylesheet" href="css/reset.css">
@@ -15,19 +16,20 @@
     <div class="wrapper-weather">
         <div class="city-weather">
             <h1 class="city-name">city name</h1>
-            <div class="temperature"></div>
+            <p class="temperature"></p>
             <img class="icon-weather" src="#" alt="#">
-            <div class="humidity info"></div>
-            <div class="wind info"></div>
-            <div class="sunrise info"></div>
-            <div class="sunset info"></div>
+            <p class="humidity info"></p>
+            <p class="wind info"></p>
+            <p class="sunrise info"></p>
+            <p class="sunset info"></p>
         </div>
+        <div class="search">
+            <input id="search-city" class="search-city" type="text" name="search-city">
+            <label for="search-city" class="search-btn"><img src="img/icon_search.svg" alt="icon search"></label>
+        </div>
+        <br>
         <p class="city-list">Your Cities</p>
         <ul class="selected-city"></ul>
-        <div class="search">
-            <input class="name-city" type="text">
-            <img class="btn-search" src="img/icon_search.svg" alt="icon search">
-        </div>
     </div>
     <script src="js/index.js"></script>
 </body>

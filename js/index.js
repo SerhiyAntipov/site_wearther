@@ -8,6 +8,8 @@ let humidity = document.querySelector('.humidity');
 let wind = document.querySelector('.wind');
 let sunrise = document.querySelector('.sunrise');
 let sunset = document.querySelector('.sunset');
+let yourCities;
+let nameCity = document.querySelector('.name-city');
 
 let defaultCity = ['lviv']
 let dataCitySet = new Set(defaultCity);
@@ -24,20 +26,20 @@ if (localStorage.getItem("city-name") === null || localStorage["city-name"] === 
 }
 
 // get weather =========================
-function xhttpRequesrtWeather(nameCity) {
+function xhttpRequesrtWeather(nameCityValue) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.response);
-            callbackWeather(response, nameCity)
+            callbackWeather(response, nameCityValue)
         }
     };
-    xhttp.open('GET', `http://api.openweathermap.org/data/2.5/weather?q=${nameCity}&appid=0bf66710f118cd8dbd8d4055849f69aa`, true);
+    xhttp.open('GET', `http://api.openweathermap.org/data/2.5/weather?q=${nameCityValue}&appid=0bf66710f118cd8dbd8d4055849f69aa`, true);
     xhttp.send();
 };
 
-function callbackWeather(response, nameCity) {
-    dataCitySet.add(nameCity.toLowerCase())
+function callbackWeather(response, nameCityValue) {
+    dataCitySet.add(nameCityValue.toLowerCase())
     localStorage.setItem("city-name", JSON.stringify(Array.from(dataCitySet)));
     fillCityWeather(response);
     fetchWeatherHour(response.id)
@@ -58,9 +60,9 @@ function fillCityWeather(response) {
 
 // search city ========================
 btnGetWeather.addEventListener('click', function () {
-    nameCity = document.querySelector('.name-city').value;
-    if (nameCity.length > 2) {
-        xhttpRequesrtWeather(nameCity)
+    nameCityValue = document.querySelector('.name-city').value;
+    if (nameCityValue.length > 2) {
+        xhttpRequesrtWeather(nameCityValue)
     }
 })
 
@@ -74,11 +76,52 @@ function viewSelectedCities() {
     let selectedCities = JSON.parse(localStorage["city-name"])
     let tempCityList = ""
     for (let i = 0; i < selectedCities.length; i++) {
-        tempCityList += `<li>${selectedCities[i]}</li>`
+        tempCityList += `<li class="your-cities">${selectedCities[i]}<span></span></li>`
     }
     listSelectedCities.innerHTML = tempCityList;
     listSelectedCities.classList.toggle('visible-city-list');
+    selectCities(listSelectedCities)
 }
+
+// select Cities ===================
+function selectCities(listSelectedCities) {
+    yourCities = document.querySelectorAll('.your-cities');
+    yourCities.forEach(function (data) {
+        data.addEventListener('click', function (event) {
+            if (event.toElement.localName == 'li' && event.toElement.localName != 'span') {
+                console.log(event)
+                xhttpRequesrtWeather(event.target.firstChild.textContent);
+                listSelectedCities.classList.toggle('visible-city-list');
+            } else if (event.toElement.localName == 'span') {
+                let dellCity = event.toElement.parentElement.textContent
+                dellSelectCities(dellCity, event)
+            }
+        })
+    })
+}
+
+
+// dell select cities ==============
+function dellSelectCities(dellCity, event) {
+    console.log(dellCity)
+    console.log(dataCitySet)
+    dataCitySet.delete(dellCity);
+    event.target.parentElement.remove()
+    let tempLocalStorage = JSON.parse(localStorage["city-name"])
+    tempLocalStorage.forEach(function (data, i) {
+        if (data == dellCity) {
+            tempLocalStorage.splice(i, 1)
+        }
+    })
+    localStorage.setItem("city-name", JSON.stringify(tempLocalStorage));
+}
+
+// search city active ==============
+nameCity.addEventListener('click', function () {
+    if (document.querySelector('.selected-city').classList.contains('visible-city-list') == true) {
+        document.querySelector('.selected-city').classList.remove('visible-city-list');
+    }
+})
 
 // get weather 5 day ====================
 function fetchWeatherHour(cityId) {

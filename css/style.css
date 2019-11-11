@@ -1,13 +1,13 @@
+:root {
+    --bg-color: blanchedalmond;
+    --border: 1px solid #9f927f;
+}
+
 .wrapper-weather {
     margin: 0 auto;
     max-width: 300px;
     min-width: 200px;
     text-align: center;
-}
-
-:root {
-    --bg-color: blanchedalmond;
-    --border: 1px solid #9f927f;
 }
 
 .city-weather {
@@ -18,8 +18,8 @@
     margin: 5px;
     border: var(--border);
     border-radius: 20px;
-    padding: 1px 10px;
-    max-width: 120px;
+    padding: 3px 10px;
+    max-width: 90px;
 }
 
 .icon-weather {
@@ -31,7 +31,7 @@
     height: 20px;
     display: inline-block;
     margin: 5px 0;
-    vertical-align: bottom;
+    vertical-align: middle;
     cursor: pointer;
 }
 
@@ -45,19 +45,37 @@
 }
 
 .city-list {
+    min-width: 90px;
     cursor: pointer;
     background-color: var(--bg-color);
     display: inline-block;
-    padding: 5px 10px;
+    padding: 3px 10px;
     border: var(--border);
     border-radius: 20px;
     user-select: none;
-    margin: 10px 0;
+    margin: 10px 0 5px;
 }
 
 .selected-city {
     visibility: hidden;
     height: 0;
+}
+
+.your-cities span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background: url(../img/icon_delete.svg) no-repeat;
+    background-size: cover;
+    vertical-align: sub;
+    float: right;
+}
+
+
+.your-cities span:hover {
+    border: 1px solid #ff0000;
 }
 
 .visible-city-list {
@@ -66,7 +84,13 @@
 }
 
 .selected-city li {
-    padding: 5px;
+    padding: 3px;
+    border: 1px solid #000;
+    border-radius: 15px;
+    margin: 0 5px 5px;
+    display: inline-block;
+    min-width: 90px;
+    cursor: pointer;
 }
 
 .selected-city li:first-letter {

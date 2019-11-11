@@ -1,13 +1,13 @@
-:root {
-    --bg-color: blanchedalmond;
-    --border: 1px solid #9f927f;
-}
-
 .wrapper-weather {
     margin: 0 auto;
     max-width: 300px;
     min-width: 200px;
     text-align: center;
+}
+
+:root {
+    --bg-color: blanchedalmond;
+    --border: 1px solid #9f927f;
 }
 
 .city-weather {

@@ -1,0 +1,109 @@
+:root {
+    --bg-color: blanchedalmond;
+    --border: 1px solid #9f927f;
+}
+
+.wrapper-weather {
+    margin: 0 auto;
+    max-width: 300px;
+    min-width: 200px;
+    text-align: center;
+}
+
+.city-weather {
+    padding-top: 10px;
+}
+
+.name-city {
+    margin: 5px;
+    border: var(--border);
+    border-radius: 20px;
+    padding: 1px 10px;
+    max-width: 120px;
+}
+
+.icon-weather {
+    width: 70px;
+}
+
+.btn-search {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin: 5px 0;
+    vertical-align: bottom;
+    cursor: pointer;
+}
+
+.fill {
+    fill: orangered;
+}
+
+.btn-search img {
+    display: block;
+    width: 100%;
+}
+
+.city-list {
+    cursor: pointer;
+    background-color: var(--bg-color);
+    display: inline-block;
+    padding: 5px 10px;
+    border: var(--border);
+    border-radius: 20px;
+    user-select: none;
+    margin: 10px 0;
+}
+
+.selected-city {
+    visibility: hidden;
+    height: 0;
+}
+
+.visible-city-list {
+    visibility: visible;
+    height: auto;
+}
+
+.selected-city li {
+    padding: 5px;
+}
+
+.selected-city li:first-letter {
+    text-transform: uppercase;
+    outline: transparent;
+}
+
+.wind::after {
+    background: url(../img/icon_wind.svg) no-repeat;
+}
+
+.humidity::after {
+    background: url(../img/icon_humidity.svg) no-repeat;
+}
+
+.sunrise::after {
+    background: url(../img/icon_sunrise.svg) no-repeat;
+}
+
+.sunset::after {
+    background: url(../img/icon_sunset.svg) no-repeat;
+}
+
+.info::after {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    background-size: contain;
+    vertical-align: sub;
+}
+
+.search {
+    background-color: var(--bg-color);
+    display: inline-block;
+    padding: 0 10px;
+    border: var(--border);
+    border-radius: 20px;
+}

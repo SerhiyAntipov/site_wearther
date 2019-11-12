@@ -1,5 +1,5 @@
 :root {
-    --background-color: #ffffff2b;
+    --background-color: #00000030;
     --border-radius: 30px;
     --padding: 10px;
     --width: 90%;
@@ -8,7 +8,8 @@
 }
 
 body {
-    background: url(../img/body_bg.jpg) no-repeat;
+    background-color: #8599b0;
+    background: url(../img/body_bg.png), linear-gradient(135deg, #143868, #d8e6ee);
     background-size: cover;
 }
 

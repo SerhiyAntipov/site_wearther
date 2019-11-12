@@ -61,11 +61,21 @@ function fillCityWeather(response) {
 
 // search city ========================
 btnGetWeather.addEventListener('click', function () {
+    searchCity1()
+})
+
+searchCity.onkeypress = function (event) {
+    if (event.charCode == 13) {
+        searchCity1()
+    }
+}
+
+function searchCity1() {
     searchCityValue = document.querySelector('.search-city').value;
     if (searchCityValue.length > 2) {
         xhttpRequesrtWeather(searchCityValue)
     }
-})
+}
 
 // visible/hide city List ============
 cityList.addEventListener('click', function () {
@@ -124,7 +134,7 @@ function dellSelectCities(dellCity, event) {
     tempLocalStorage.forEach(function (data, i) {
         if (data == dellCity) {
             tempLocalStorage.splice(i, 1)
-            if (i == tempLocalStorage.length) {
+            if (i == tempLocalStorage.length && tempLocalStorage.length > 1) {
                 xhttpRequesrtWeather(tempLocalStorage[tempLocalStorage.length - 1])
             }
         }

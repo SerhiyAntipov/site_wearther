@@ -23,7 +23,7 @@ if (localStorage.getItem("city-name") === null || localStorage["city-name"] === 
 } else if (localStorage.getItem("city-name") != null) {
     let dataCityName = JSON.parse(localStorage["city-name"]);
     dataCitySet = new Set(dataCityName);
-    xhttpRequesrtWeather(dataCityName[dataCityName.length - 1]);
+    xhttpRequesrtWeather(dataCityName[0]);
 }
 
 // get weather =========================
@@ -138,7 +138,7 @@ function lastElementlocalStorage(tempCityName) {
     let tempLocalStorage = JSON.parse(localStorage["city-name"]);
     tempLocalStorage.forEach(function (data, i) {
         if (data == tempCityName) {
-            tempLocalStorage.push(tempLocalStorage.splice(i, 1)[0]);
+            tempLocalStorage.unshift(tempLocalStorage.splice(i, 1)[0]);
         }
     })
     dataCitySet = new Set(tempLocalStorage);
@@ -154,7 +154,7 @@ function dellSelectCities(dellCity, event) {
         if (data == dellCity) {
             tempLocalStorage.splice(i, 1)
             if (i == tempLocalStorage.length && tempLocalStorage.length > 1) {
-                xhttpRequesrtWeather(tempLocalStorage[tempLocalStorage.length - 1])
+                xhttpRequesrtWeather(tempLocalStorage[0])
             }
         }
     })

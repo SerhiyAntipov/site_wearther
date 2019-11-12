@@ -35,6 +35,7 @@ function xhttpRequesrtWeather(inputSearchCityValue) {
             callbackWeather(response, inputSearchCityValue)
             creationCitylist()
             inputSearchCity.value = "";
+            console.log(response)
         } else if (this.readyState == 4 && this.status == 404) {
             alert('Not Found')
         }

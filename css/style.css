@@ -189,22 +189,20 @@ body {
 
 .search {
     cursor: pointer;
-    padding: 20px 10px 20px 20px;
+    padding: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
     background-color: #0000004d;
     box-shadow: 0px 1px 2px 1px #000000b3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
 }
 
 .input-search-city {
     border: none;
     border-radius: 25px;
-    padding: 5px 20px;
+    padding: 7px 55px 7px 30px;
     box-sizing: border-box;
-    width: calc(100% - 55px);
+    width: 100%;
     outline: none;
     vertical-align: middle;
     font-size: 24px;
@@ -227,6 +225,9 @@ body {
     cursor: pointer;
     box-sizing: border-box;
     border-bottom-right-radius: 12px;
+    position: absolute;
+    top: 24px;
+    right: 25px;
 }
 
 .search-btn img:hover {

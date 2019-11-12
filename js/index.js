@@ -9,6 +9,9 @@ let humidity = document.querySelector('.humidity');
 let wind = document.querySelector('.wind');
 let sunrise = document.querySelector('.sunrise');
 let sunset = document.querySelector('.sunset');
+let newWeather = document.querySelector('.new-weather');
+let day5 = document.querySelector('.day-5');
+let threeHours = document.querySelector('.three-hours');
 let yourCities;
 let inputSearchCity = document.querySelector('.input-search-city');
 
@@ -35,7 +38,6 @@ function xhttpRequesrtWeather(inputSearchCityValue) {
             callbackWeather(response, inputSearchCityValue)
             creationCitylist()
             inputSearchCity.value = "";
-            console.log(response)
         } else if (this.readyState == 4 && this.status == 404) {
             alert('Not Found')
         }
@@ -134,7 +136,24 @@ function selectCities(listSelectedCities) {
     })
 }
 
-// moving the selected city to the last element localStorage
+// New Weather ==================
+newWeather.addEventListener('click', function () {
+    xhttpRequesrtWeather(Array.from(dataCitySet)[0]);
+})
+
+
+
+// alert this function on development stage
+day5.addEventListener('click', function () {
+    alert('this function on development stage')
+})
+
+threeHours.addEventListener('click', function () {
+    alert('this function on development stage')
+})
+
+
+// moving the selected city to the first element localStorage
 function lastElementlocalStorage(tempCityName) {
     let tempLocalStorage = JSON.parse(localStorage["city-name"]);
     tempLocalStorage.forEach(function (data, i) {

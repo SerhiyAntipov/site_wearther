@@ -7,9 +7,6 @@
     --box-shadow: 0px 0px 7px 2px #00000069;
 }
 
-
-
-
 .wrapper-weather {
     margin: 0 auto;
     max-width: 480px;
@@ -24,7 +21,7 @@
 }
 
 .city-weather,
-.forecast-5day,
+.weather-forecast,
 .cities {
     margin: var(--margin);
     width: var(--width);
@@ -34,15 +31,10 @@
     box-shadow: var(--box-shadow);
 }
 
-
 /* city weather =========== */
 .city-weather {
     min-height: 335px;
 }
-
-/* .weather-data {
-    padding: 5px 0;
-} */
 
 .weather-title {
     padding: 20px;
@@ -95,10 +87,9 @@
     vertical-align: bottom;
 }
 
-
 /* weather forecast ======== */
-
-.weather-forecast {
+.new-weather,
+.three-hours {
     padding: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -108,10 +99,9 @@
     cursor: pointer;
 }
 
-
 /* city lost ============= */
-
-.city-list {
+.city-list,
+.day-5 {
     cursor: pointer;
     padding: 20px;
     border-top-right-radius: 20px;
@@ -123,7 +113,9 @@
 }
 
 .city-list:hover,
-.weather-forecast:hover {
+.new-weather:hover,
+.day-5:hover,
+.three-hours:hover {
     box-shadow: inset 0px 1px 2px 0px #000000b3;
     background-color: #004c5e;
 }
@@ -233,18 +225,7 @@
 }
 
 .search-btn img:hover {
-    animation: cart-rotete 1s infinite;
-}
-
-
-@keyframes cart-rotete {
-    25% {
-        transform: rotate(15deg)
-    }
-
-    75% {
-        transform: rotate(-15deg)
-    }
+    animation: cart-rotate 1s infinite;
 }
 
 .search-btn img {

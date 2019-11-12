@@ -67,7 +67,7 @@ btnGetWeather.addEventListener('click', function () {
     }
 })
 
-// visible hide city List ============
+// visible/hide city List ============
 cityList.addEventListener('click', function () {
     let listSelectedCities = document.querySelector('.selected-city');
     listSelectedCities.classList.toggle('visible-city-list');
@@ -86,15 +86,16 @@ function creationCitylist() {
     selectCities(listSelectedCities)
 }
 
-// select Cities ===================
+// select city ===================
 function selectCities(listSelectedCities) {
     yourCities = document.querySelectorAll('.your-cities');
     yourCities.forEach(function (data) {
         data.addEventListener('click', function (event) {
             if (event.toElement.localName == 'li' && event.toElement.localName != 'span') {
-                console.log(event)
-                xhttpRequesrtWeather(event.target.firstChild.textContent);
+                let tempCityName = event.target.firstChild.textContent;
+                xhttpRequesrtWeather(tempCityName);
                 listSelectedCities.classList.toggle('visible-city-list');
+                lastElementlocalStorage(tempCityName)
             } else if (event.toElement.localName == 'span') {
                 let dellCity = event.toElement.parentElement.textContent
                 dellSelectCities(dellCity, event)
@@ -103,22 +104,35 @@ function selectCities(listSelectedCities) {
     })
 }
 
-// dell select city ==============
+// moving the selected city to the last element localStorage
+function lastElementlocalStorage(tempCityName) {
+    let tempLocalStorage = JSON.parse(localStorage["city-name"]);
+    tempLocalStorage.forEach(function (data, i) {
+        if (data == tempCityName) {
+            tempLocalStorage.push(tempLocalStorage.splice(i, 1)[0]);
+        }
+    })
+    dataCitySet = new Set(tempLocalStorage);
+    localStorage.setItem("city-name", JSON.stringify(tempLocalStorage));
+}
+
+// dell selected city + (last city) ==============
 function dellSelectCities(dellCity, event) {
-    console.log(dellCity)
-    console.log(dataCitySet)
     dataCitySet.delete(dellCity);
     event.target.parentElement.remove()
     let tempLocalStorage = JSON.parse(localStorage["city-name"])
     tempLocalStorage.forEach(function (data, i) {
         if (data == dellCity) {
             tempLocalStorage.splice(i, 1)
+            if (i == tempLocalStorage.length) {
+                xhttpRequesrtWeather(tempLocalStorage[tempLocalStorage.length - 1])
+            }
         }
     })
     localStorage.setItem("city-name", JSON.stringify(tempLocalStorage));
 }
 
-// search city active ==============
+// input 'search city' active ==============
 searchCity.addEventListener('click', function () {
     if (document.querySelector('.selected-city').classList.contains('visible-city-list') == true) {
         // document.querySelector('.selected-city').classList.remove('visible-city-list');
@@ -133,7 +147,6 @@ function fetchWeatherHour(cityId) {
         })
         .then(function (response) {
             weatherHour = response;
-            console.log(weatherHour)
         })
         .catch(function () {
             console.log('the database did not load')

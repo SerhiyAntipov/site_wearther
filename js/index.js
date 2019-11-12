@@ -60,10 +60,11 @@ function fillCityWeather(response) {
     dateString += (tempWeatherTime.getMonth() + 1) + "/";
     dateString += tempWeatherTime.getFullYear() + "  ";
     dateString += tempWeatherTime.getHours() + ":";
-    if (tempWeatherTime.getMinutes() < 10) {
-        tempWeatherTime.getMinutes() = "0" + tempWeatherTime.getMinutes();
+    let tempMinute = tempWeatherTime.getMinutes()
+    if (tempMinute < 10) {
+        tempMinute = "0" + tempMinute;
     }
-    dateString += tempWeatherTime.getMinutes()
+    dateString += tempMinute;
     weatherDate.textContent = dateString;
 
     temperature.innerHTML = `${(response.main.temp - 273.15).toFixed(1)}&deg; C`;

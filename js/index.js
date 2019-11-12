@@ -123,7 +123,7 @@ function selectCities(listSelectedCities) {
             if (event.toElement.localName == 'li' && event.toElement.localName != 'span') {
                 let tempCityName = event.target.firstChild.textContent;
                 xhttpRequesrtWeather(tempCityName);
-                listSelectedCities.classList.toggle('visible-city-list');
+                // listSelectedCities.classList.toggle('visible-city-list');
                 lastElementlocalStorage(tempCityName)
             } else if (event.toElement.localName == 'span') {
                 let dellCity = event.toElement.parentElement.textContent

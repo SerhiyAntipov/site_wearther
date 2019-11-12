@@ -95,7 +95,6 @@ function searchCity() {
     inputSearchCityValue = document.querySelector('.input-search-city').value;
     if (inputSearchCityValue.length > 2) {
         xhttpRequesrtWeather(inputSearchCityValue)
-        console.log(inputSearchCityValue)
     }
 }
 

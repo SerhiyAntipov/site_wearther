@@ -15,7 +15,13 @@
     min-height: 185px;
 }
 
-.search-city {
+.city-weather h1 {
+    padding: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.input-search-city {
     margin: 2px;
     border: var(--border);
     border-radius: 20px;
@@ -24,7 +30,7 @@
     outline: none;
 }
 
-.search-city:focus {
+.input-search-city:focus {
     box-shadow: 0 0 1pt 1pt #004eff;
 }
 

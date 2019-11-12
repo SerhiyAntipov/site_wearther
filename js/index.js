@@ -2,6 +2,7 @@ let weatherHour;
 let btnGetWeather = document.querySelector('.search-btn');
 
 let cityName = document.querySelector('.city-name');
+let weatherDate = document.querySelector('.weather-date');
 let temperature = document.querySelector('.temperature');
 let iconWeather = document.querySelector('.icon-weather');
 let humidity = document.querySelector('.humidity');
@@ -9,7 +10,7 @@ let wind = document.querySelector('.wind');
 let sunrise = document.querySelector('.sunrise');
 let sunset = document.querySelector('.sunset');
 let yourCities;
-let searchCity = document.querySelector('.search-city');
+let inputSearchCity = document.querySelector('.input-search-city');
 
 let defaultCity = ['lviv']
 let dataCitySet = new Set(defaultCity);
@@ -26,21 +27,24 @@ if (localStorage.getItem("city-name") === null || localStorage["city-name"] === 
 }
 
 // get weather =========================
-function xhttpRequesrtWeather(searchCityValue) {
+function xhttpRequesrtWeather(inputSearchCityValue) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.response);
-            callbackWeather(response, searchCityValue)
+            callbackWeather(response, inputSearchCityValue)
             creationCitylist()
+            inputSearchCity.value = "";
+        } else if (this.readyState == 4 && this.status == 404) {
+            alert('Not Found')
         }
     };
-    xhttp.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${searchCityValue}&appid=0bf66710f118cd8dbd8d4055849f69aa`, true);
+    xhttp.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${inputSearchCityValue}&appid=0bf66710f118cd8dbd8d4055849f69aa`, true);
     xhttp.send();
 };
 
-function callbackWeather(response, searchCityValue) {
-    dataCitySet.add(searchCityValue.toLowerCase())
+function callbackWeather(response, inputSearchCityValue) {
+    dataCitySet.add(inputSearchCityValue.toLowerCase())
     localStorage.setItem("city-name", JSON.stringify(Array.from(dataCitySet)));
     fillCityWeather(response);
     fetchWeatherHour(response.id)
@@ -49,6 +53,19 @@ function callbackWeather(response, searchCityValue) {
 // fill city weather ==================
 function fillCityWeather(response) {
     cityName.textContent = response.name + ' ' + response.sys.country;
+
+    let tempWeatherTime = new Date(response.dt * 1000)
+    let dateString;
+    dateString = tempWeatherTime.getDate() + "/";
+    dateString += (tempWeatherTime.getMonth() + 1) + "/";
+    dateString += tempWeatherTime.getFullYear() + "  ";
+    dateString += tempWeatherTime.getHours() + ":";
+    if (tempWeatherTime.getMinutes() < 10) {
+        tempWeatherTime.getMinutes() = "0" + tempWeatherTime.getMinutes();
+    }
+    dateString += tempWeatherTime.getMinutes()
+    weatherDate.textContent = dateString;
+
     temperature.innerHTML = `${(response.main.temp - 273.15).toFixed(1)}&deg; C`;
     iconWeather.setAttribute('src', `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`);
     let sunr = new Date(response.sys.sunrise * 1000)
@@ -61,19 +78,20 @@ function fillCityWeather(response) {
 
 // search city ========================
 btnGetWeather.addEventListener('click', function () {
-    searchCity1()
+    searchCity()
 })
 
-searchCity.onkeypress = function (event) {
+inputSearchCity.onkeypress = function (event) {
     if (event.charCode == 13) {
-        searchCity1()
+        searchCity()
     }
 }
 
-function searchCity1() {
-    searchCityValue = document.querySelector('.search-city').value;
-    if (searchCityValue.length > 2) {
-        xhttpRequesrtWeather(searchCityValue)
+function searchCity() {
+    inputSearchCityValue = document.querySelector('.input-search-city').value;
+    if (inputSearchCityValue.length > 2) {
+        xhttpRequesrtWeather(inputSearchCityValue)
+        console.log(inputSearchCityValue)
     }
 }
 
@@ -143,7 +161,7 @@ function dellSelectCities(dellCity, event) {
 }
 
 // input 'search city' active ==============
-searchCity.addEventListener('click', function () {
+inputSearchCity.addEventListener('click', function () {
     if (document.querySelector('.selected-city').classList.contains('visible-city-list') == true) {
         // document.querySelector('.selected-city').classList.remove('visible-city-list');
     }

@@ -5,14 +5,14 @@
 
 .wrapper-weather {
     margin: 0 auto;
-    max-width: 300px;
-    min-width: 200px;
+    max-width: 800px;
+    min-width: 320px;
     text-align: center;
 }
 
 .city-weather {
     padding-top: 10px;
-    min-height: 185px;
+    min-height: 245px;
 }
 
 .city-weather h1 {
@@ -69,6 +69,10 @@
 }
 
 .selected-city {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
     visibility: hidden;
     height: 0;
 }

@@ -32,6 +32,7 @@ function xhttpRequesrtWeather(searchCityValue) {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.response);
             callbackWeather(response, searchCityValue)
+            creationCitylist()
         }
     };
     xhttp.open('GET', `https://api.openweathermap.org/data/2.5/weather?q=${searchCityValue}&appid=0bf66710f118cd8dbd8d4055849f69aa`, true);
@@ -60,18 +61,21 @@ function fillCityWeather(response) {
 
 // search city ========================
 btnGetWeather.addEventListener('click', function () {
-    searchCityValue = document.querySelector('.name-city').value;
+    searchCityValue = document.querySelector('.search-city').value;
     if (searchCityValue.length > 2) {
         xhttpRequesrtWeather(searchCityValue)
     }
 })
 
-// creation city list ===================
+// visible hide city List ============
 cityList.addEventListener('click', function () {
-    viewSelectedCities()
+    let listSelectedCities = document.querySelector('.selected-city');
+    listSelectedCities.classList.toggle('visible-city-list');
+    creationCitylist()
 })
 
-function viewSelectedCities() {
+// creation city list ===================
+function creationCitylist() {
     let listSelectedCities = document.querySelector('.selected-city');
     let selectedCities = JSON.parse(localStorage["city-name"])
     let tempCityList = ""
@@ -79,7 +83,6 @@ function viewSelectedCities() {
         tempCityList += `<li class="your-cities">${selectedCities[i]}<span></span></li>`
     }
     listSelectedCities.innerHTML = tempCityList;
-    listSelectedCities.classList.toggle('visible-city-list');
     selectCities(listSelectedCities)
 }
 
@@ -100,7 +103,7 @@ function selectCities(listSelectedCities) {
     })
 }
 
-// dell select cities ==============
+// dell select city ==============
 function dellSelectCities(dellCity, event) {
     console.log(dellCity)
     console.log(dataCitySet)
@@ -118,7 +121,7 @@ function dellSelectCities(dellCity, event) {
 // search city active ==============
 searchCity.addEventListener('click', function () {
     if (document.querySelector('.selected-city').classList.contains('visible-city-list') == true) {
-        document.querySelector('.selected-city').classList.remove('visible-city-list');
+        // document.querySelector('.selected-city').classList.remove('visible-city-list');
     }
 })
 

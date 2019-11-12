@@ -97,6 +97,7 @@
     background-color: #005468;
     box-shadow: 0px 1px 2px 1px #000000b3;
     cursor: pointer;
+    user-select: none;
 }
 
 /* city lost ============= */

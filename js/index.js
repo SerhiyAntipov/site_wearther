@@ -183,8 +183,6 @@ function fetchWeatherHour(cityId) {
         })
         .then(function (response) {
             weatherHour = response;
-            weatherOnHour();
-            fiveDayWeatherForecast();
         })
         .catch(function () {
             console.log('the database did not load')
@@ -192,24 +190,27 @@ function fetchWeatherHour(cityId) {
 }
 
 
+day5.addEventListener('click', function () {
+    if (weatherHour.cod == 200) {
+        fiveDayWeatherForecast()
+        document.querySelector('.three-hours-data').classList.toggle('fill')
+    }
+})
 
+threeHours.addEventListener('click', function () {
+    if (weatherHour.cod == 200) {
+        fiveDayWeatherForecast()
+        document.querySelector('.three-hours-data').classList.toggle('fill')
+    }
+})
+
+// fill 5 day forecast ==================
 function fiveDayWeatherForecast() {
-    day5.addEventListener('click', function () {
-        tempWeather()
-        document.querySelector('.three-hours-data').classList.toggle('fill')
-    })
-}
 
-function weatherOnHour() {
-    threeHours.addEventListener('click', function () {
-        tempWeather()
-        document.querySelector('.three-hours-data').classList.toggle('fill')
-    })
-}
-
-function tempWeather() {
-    let hourlyWeatherForecast = "";
+    console.log(weatherHour.city.name + "  " + weatherHour.city.country)
+    let hourlyWeatherForecast = `<p class="city-name">${weatherHour.city.name}  ${weatherHour.city.country} </p>`;
     let wiewDate = "2019-11-12"
+
     weatherHour.list.forEach(function (data) {
         let date = data.dt_txt.slice(0, 10);
         let time = data.dt_txt.slice(10, 16);

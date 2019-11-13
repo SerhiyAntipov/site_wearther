@@ -140,18 +140,6 @@ newWeather.addEventListener('click', function () {
     xhttpRequesrtWeather(Array.from(dataCitySet)[0]);
 })
 
-
-
-// alert this function on development stage
-day5.addEventListener('click', function () {
-    alert('this function on development stage')
-})
-
-threeHours.addEventListener('click', function () {
-    alert('this function on development stage')
-})
-
-
 // moving the selected city to the first element localStorage
 function lastElementlocalStorage(tempCityName) {
     let tempLocalStorage = JSON.parse(localStorage["city-name"]);
@@ -195,8 +183,43 @@ function fetchWeatherHour(cityId) {
         })
         .then(function (response) {
             weatherHour = response;
+            weatherOnHour();
+            fiveDayWeatherForecast();
         })
         .catch(function () {
             console.log('the database did not load')
         });
+}
+
+
+
+function fiveDayWeatherForecast() {
+    day5.addEventListener('click', function () {
+        tempWeather()
+        document.querySelector('.three-hours-data').classList.toggle('fill')
+    })
+}
+
+function weatherOnHour() {
+    threeHours.addEventListener('click', function () {
+        tempWeather()
+        document.querySelector('.three-hours-data').classList.toggle('fill')
+    })
+}
+
+function tempWeather() {
+    let hourlyWeatherForecast = "";
+    let wiewDate = "2019-11-12"
+    weatherHour.list.forEach(function (data) {
+        let date = data.dt_txt.slice(0, 10);
+        let time = data.dt_txt.slice(10, 16);
+        if (date !== wiewDate) {
+            hourlyWeatherForecast += `<p class="hour-date"> date ${date}</p>`
+            hourlyWeatherForecast += `<p class="hour-time">${time}  ${data.weather[0].main}  ${(data.main.temp - 273.15).toFixed(1)} &deg;C</p>`
+            wiewDate = date
+        } else {
+            hourlyWeatherForecast += `<p class="hour-time">${time}  ${data.weather[0].main}  ${(data.main.temp - 273.15).toFixed(1)} &deg;C </p>`
+        }
+    })
+    document.querySelector('.three-hours-data').innerHTML = hourlyWeatherForecast;
 }

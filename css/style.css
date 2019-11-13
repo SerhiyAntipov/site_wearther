@@ -239,3 +239,33 @@ body {
     width: auto;
     height: 100%;
 }
+
+/* =========================  */
+
+.weather-hour {
+    margin-bottom: 20px;
+}
+
+.hour-date {
+    padding: 15px 20px;
+    margin: 20px 0 10px;
+    border-radius: 30px;
+    box-shadow: inset 0px 0px 3px 1px #000;
+}
+
+.hour-time img {
+    vertical-align: middle;
+}
+
+.three-hours-data {
+    position: absolute;
+    height: 1px;
+    top: -200px;
+    overflow: hidden;
+}
+
+.three-hours-data.fill {
+    position: relative;
+    top: 0;
+    height: auto;
+}

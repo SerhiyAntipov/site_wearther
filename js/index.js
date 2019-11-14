@@ -100,8 +100,10 @@ function searchCity() {
 
 // visible/hide city List ============
 cityList.addEventListener('click', function () {
+
     let listSelectedCities = document.querySelector('.selected-city');
     listSelectedCities.classList.toggle('visible-city-list');
+    cityList.classList.toggle('close-menu');
     creationCitylist()
 })
 
@@ -183,6 +185,7 @@ function fetchWeatherHour(cityId) {
         })
         .then(function (response) {
             weatherHour = response;
+            fiveDayWeatherForecast()
         })
         .catch(function () {
             console.log('the database did not load')
@@ -193,21 +196,23 @@ function fetchWeatherHour(cityId) {
 day5.addEventListener('click', function () {
     if (weatherHour.cod == 200) {
         fiveDayWeatherForecast()
-        document.querySelector('.three-hours-data').classList.toggle('fill')
+        document.querySelector('.three-hours-data').classList.toggle('fill');
+        day5.classList.toggle('close-menu');
+        threeHours.classList.toggle('close-menu');
     }
 })
 
 threeHours.addEventListener('click', function () {
     if (weatherHour.cod == 200) {
         fiveDayWeatherForecast()
-        document.querySelector('.three-hours-data').classList.toggle('fill')
+        document.querySelector('.three-hours-data').classList.toggle('fill');
+        threeHours.classList.toggle('close-menu');
+        day5.classList.toggle('close-menu');
     }
 })
 
 // fill 5 day forecast ==================
 function fiveDayWeatherForecast() {
-
-    console.log(weatherHour.city.name + "  " + weatherHour.city.country)
     let hourlyWeatherForecast = `<p class="city-name">${weatherHour.city.name}  ${weatherHour.city.country} </p>`;
     let wiewDate = "2019-11-12"
 

@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Description" content="Author: Serhiy Antipov">
     <title>Weather</title>
-    <link href="https://fonts.googleapis.com/css?family=Rancho&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
@@ -24,17 +23,17 @@
             <h1 class="city-name">City Name</h1>
             <p class="temperature">0.0 &deg; C</p>
             <img class="icon-weather" src="img/icon_weather_default.png" alt="icon weather default">
-            <p class="humidity info weather-data">Humidity: 0%</p>
-            <p class="wind info weather-data">Wind: 0 m/s</p>
-            <p class="sunrise info weather-data">Sunrise: 00.00.00</p>
-            <p class="sunset info weather-data">Sunset: 00.00.00</p>
+            <p class="humidity info">Humidity: 0%</p>
+            <p class="wind info">Wind: 0 m/s</p>
+            <p class="sunrise info">Sunrise: 00.00.00</p>
+            <p class="sunset info">Sunset: 00.00.00</p>
             <p class="new-weather">Get New Weather</p>
         </div>
         <div class="cities">
             <p class="city-list">Your Cities</p>
             <ul class="selected-city"></ul>
             <div class="search">
-                <input id="input-search-city" class="input-search-city" type="text" name="input-search-city">
+                <input id="input-search-city" class="input-search-city" type="text">
                 <label for="input-search-city" class="search-btn"><img src="img/icon_search.svg"
                         alt="icon search"></label>
             </div>
@@ -42,7 +41,7 @@
         <div class="weather-forecast">
             <p class="day-5">Forecast Five Day</p>
             <div class="three-hours-data"></div>
-            <p class="three-hours">Weather Every Three Hours</p>
+            <p class="three-hours">Forecast Three Hours</p>
         </div>
     </div>
     <script src="js/index.js"></script>

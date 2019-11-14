@@ -7,6 +7,11 @@
     --box-shadow: 0px 0px 7px 2px #00000069;
 }
 
+@font-face {
+    font-family: 'Rancho-Regular';
+    src: url(../fonts/Rancho-Regular.ttf);
+}
+
 body {
     background-color: #8599b0;
     background: url(../img/body_bg.png), linear-gradient(135deg, #143868, #d8e6ee);
@@ -22,7 +27,7 @@ body {
     padding: 10px;
     box-sizing: border-box;
     color: #fff;
-    font-family: 'Rancho', cursive;
+    font-family: 'Rancho-Regular', cursive;
 }
 
 .city-weather,
@@ -111,18 +116,26 @@ body {
     border-top-left-radius: 20px;
     user-select: none;
     margin-bottom: 20px;
-    background-color: #0000004d;
     box-shadow: 0px 1px 2px 1px #000000b3;
 }
 
-.city-list:hover,
-.new-weather:hover,
-.day-5:hover,
-.three-hours:hover {
+.new-weather:hover {
     box-shadow: inset 0px 1px 2px 0px #000000b3;
     background-color: #00000080;
-    ;
 }
+
+.city-list,
+.day-5,
+.three-hours {
+    background: url(../img/burger_01.png) center right 10px no-repeat, #0000004d;
+}
+
+.city-list.close-menu,
+.day-5.close-menu,
+.three-hours.close-menu {
+    background: url(../img/burger_02.png) center right 10px no-repeat, #0000004d;
+}
+
 
 .selected-city {
     visibility: hidden;
@@ -239,6 +252,19 @@ body {
     width: auto;
     height: 100%;
 }
+
+/* checkbox =================================== */
+
+.checkbox-hidden {
+    display: none;
+}
+
+.day-5,
+.city-list,
+.three-hours {
+    padding-right: 50px;
+}
+
 
 /* =========================  */
 

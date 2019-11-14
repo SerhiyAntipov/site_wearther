@@ -1,31 +1,27 @@
+const btnGetWeather = document.querySelector('.search-btn');
+const cityName = document.querySelector('.city-name');
+const weatherDate = document.querySelector('.weather-date');
+const temperature = document.querySelector('.temperature');
+const iconWeather = document.querySelector('.icon-weather');
+const humidity = document.querySelector('.humidity');
+const wind = document.querySelector('.wind');
+const sunrise = document.querySelector('.sunrise');
+const sunset = document.querySelector('.sunset');
+const newWeather = document.querySelector('.new-weather');
+const day5 = document.querySelector('.day-5');
+const threeHours = document.querySelector('.three-hours');
+const inputSearchCity = document.querySelector('.input-search-city');
+const defaultCity = ['lviv']
+const cityList = document.querySelector('.city-list');
 let weatherHour;
-let btnGetWeather = document.querySelector('.search-btn');
-
-let cityName = document.querySelector('.city-name');
-let weatherDate = document.querySelector('.weather-date');
-let temperature = document.querySelector('.temperature');
-let iconWeather = document.querySelector('.icon-weather');
-let humidity = document.querySelector('.humidity');
-let wind = document.querySelector('.wind');
-let sunrise = document.querySelector('.sunrise');
-let sunset = document.querySelector('.sunset');
-let newWeather = document.querySelector('.new-weather');
-let day5 = document.querySelector('.day-5');
-let threeHours = document.querySelector('.three-hours');
 let yourCities;
-let inputSearchCity = document.querySelector('.input-search-city');
-
-let defaultCity = ['lviv']
-let dataCitySet = new Set(defaultCity);
-let cityList = document.querySelector('.city-list');
 
 // start app =========================
 if (localStorage.getItem("city-name") === null || localStorage["city-name"] === '[]') {
-    localStorage.setItem("city-name", JSON.stringify(Array.from(dataCitySet)));
+    localStorage.setItem("city-name", JSON.stringify(defaultCity).toLowerCase());
     xhttpRequesrtWeather(defaultCity[0]);
 } else if (localStorage.getItem("city-name") != null) {
     let dataCityName = JSON.parse(localStorage["city-name"]);
-    dataCitySet = new Set(dataCityName);
     xhttpRequesrtWeather(dataCityName[0]);
 }
 
@@ -47,16 +43,29 @@ function xhttpRequesrtWeather(inputSearchCityValue) {
 };
 
 function callbackWeather(response, inputSearchCityValue) {
-    dataCitySet.add(inputSearchCityValue.toLowerCase())
-    localStorage.setItem("city-name", JSON.stringify(Array.from(dataCitySet)));
+    localStorageDataExchange(inputSearchCityValue)
     fillCityWeather(response);
     fetchWeatherHour(response.id)
+};
+
+// local Storage Data Exchange =============
+function localStorageDataExchange(inputSearchCityValue) {
+    let dataCityName = JSON.parse(localStorage["city-name"]);
+    let presenceInData = dataCityName.indexOf(inputSearchCityValue)
+    if (presenceInData == 0) {
+        return
+    } else if (presenceInData > 0) {
+        dataCityName.unshift(dataCityName.splice(presenceInData, 1)[0]);
+        localStorage.setItem("city-name", JSON.stringify(dataCityName));
+    } else if (presenceInData == -1) {
+        dataCityName.unshift(inputSearchCityValue);
+        localStorage.setItem("city-name", JSON.stringify(dataCityName));
+    }
 };
 
 // fill city weather ==================
 function fillCityWeather(response) {
     cityName.textContent = response.name + ' ' + response.sys.country;
-
     let tempWeatherTime = new Date(response.dt * 1000)
     let dateString;
     dateString = tempWeatherTime.getDate() + "/";
@@ -92,7 +101,7 @@ inputSearchCity.onkeypress = function (event) {
 }
 
 function searchCity() {
-    inputSearchCityValue = document.querySelector('.input-search-city').value;
+    inputSearchCityValue = document.querySelector('.input-search-city').value.toLowerCase();
     if (inputSearchCityValue.length > 2) {
         xhttpRequesrtWeather(inputSearchCityValue)
     }
@@ -100,7 +109,6 @@ function searchCity() {
 
 // visible/hide city List ============
 cityList.addEventListener('click', function () {
-
     let listSelectedCities = document.querySelector('.selected-city');
     listSelectedCities.classList.toggle('visible-city-list');
     cityList.classList.toggle('close-menu');
@@ -113,24 +121,24 @@ function creationCitylist() {
     let selectedCities = JSON.parse(localStorage["city-name"])
     let tempCityList = ""
     for (let i = 0; i < selectedCities.length; i++) {
+        selectedCities[i] = selectedCities[i].charAt(0).toUpperCase() + selectedCities[i].substr(1)
         tempCityList += `<li class="your-cities">${selectedCities[i]}<span></span></li>`
     }
     listSelectedCities.innerHTML = tempCityList;
-    selectCities(listSelectedCities)
+    selectCities()
 }
 
 // select city ===================
-function selectCities(listSelectedCities) {
+function selectCities() {
     yourCities = document.querySelectorAll('.your-cities');
     yourCities.forEach(function (data) {
         data.addEventListener('click', function (event) {
             if (event.toElement.localName == 'li' && event.toElement.localName != 'span') {
-                let tempCityName = event.target.firstChild.textContent;
+                let tempCityName = event.target.firstChild.textContent.toLowerCase();
                 xhttpRequesrtWeather(tempCityName);
-                // listSelectedCities.classList.toggle('visible-city-list');
-                lastElementlocalStorage(tempCityName)
+                firstElementlocalStorage(tempCityName)
             } else if (event.toElement.localName == 'span') {
-                let dellCity = event.toElement.parentElement.textContent
+                let dellCity = event.toElement.parentElement.textContent.toLowerCase()
                 dellSelectCities(dellCity, event)
             }
         })
@@ -139,43 +147,35 @@ function selectCities(listSelectedCities) {
 
 // New Weather ==================
 newWeather.addEventListener('click', function () {
-    xhttpRequesrtWeather(Array.from(dataCitySet)[0]);
+    let dataCityName = JSON.parse(localStorage["city-name"]);
+    xhttpRequesrtWeather(dataCityName[0]);
 })
 
 // moving the selected city to the first element localStorage
-function lastElementlocalStorage(tempCityName) {
+function firstElementlocalStorage(tempCityName) {
     let tempLocalStorage = JSON.parse(localStorage["city-name"]);
     tempLocalStorage.forEach(function (data, i) {
         if (data == tempCityName) {
             tempLocalStorage.unshift(tempLocalStorage.splice(i, 1)[0]);
         }
     })
-    dataCitySet = new Set(tempLocalStorage);
     localStorage.setItem("city-name", JSON.stringify(tempLocalStorage));
 }
 
-// dell selected city + (last city) ==============
+// dell selected city ==============
 function dellSelectCities(dellCity, event) {
-    dataCitySet.delete(dellCity);
     event.target.parentElement.remove()
     let tempLocalStorage = JSON.parse(localStorage["city-name"])
     tempLocalStorage.forEach(function (data, i) {
         if (data == dellCity) {
-            tempLocalStorage.splice(i, 1)
-            if (i == tempLocalStorage.length && tempLocalStorage.length > 1) {
+            tempLocalStorage.splice(i, 1);
+            if (i == 0 && tempLocalStorage.length > 0) {
                 xhttpRequesrtWeather(tempLocalStorage[0])
             }
         }
     })
     localStorage.setItem("city-name", JSON.stringify(tempLocalStorage));
 }
-
-// input 'search city' active ==============
-inputSearchCity.addEventListener('click', function () {
-    if (document.querySelector('.selected-city').classList.contains('visible-city-list') == true) {
-        // document.querySelector('.selected-city').classList.remove('visible-city-list');
-    }
-})
 
 // get weather 5 day ====================
 function fetchWeatherHour(cityId) {
@@ -191,7 +191,6 @@ function fetchWeatherHour(cityId) {
             console.log('the database did not load')
         });
 }
-
 
 day5.addEventListener('click', function () {
     if (weatherHour.cod == 200) {

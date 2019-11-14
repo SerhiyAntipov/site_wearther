@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Rancho-Regular';
+    src: url(../fonts/Rancho-Regular.ttf);
+}
+
 :root {
     --background-color: #00000030;
     --border-radius: 30px;
@@ -5,11 +10,6 @@
     --width: 90%;
     --margin: 0 auto 20px;
     --box-shadow: 0px 0px 7px 2px #00000069;
-}
-
-@font-face {
-    font-family: 'Rancho-Regular';
-    src: url(../fonts/Rancho-Regular.ttf);
 }
 
 body {
@@ -42,7 +42,6 @@ body {
 }
 
 /* city weather =========== */
-
 .weather-title {
     padding: 20px;
     border-top-right-radius: 20px;
@@ -136,14 +135,6 @@ body {
     background: url(../img/burger_02.png) center right 10px no-repeat, #0000004d;
 }
 
-
-.selected-city {
-    visibility: hidden;
-    height: 1px;
-    position: absolute;
-    top: -400px;
-}
-
 .your-cities span {
     display: inline-block;
     width: 40px;
@@ -174,11 +165,22 @@ body {
 .visible-city-list {
     visibility: visible;
     height: auto;
-    position: static;
 }
 
 .selected-city li:first-letter {
     text-transform: uppercase;
+}
+
+.selected-city {
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+.selected-city.visible-city-list {
+    visibility: visible;
+    height: auto;
+    overflow: visible;
 }
 
 .selected-city li {
@@ -196,6 +198,10 @@ body {
     user-select: none;
 }
 
+.selected-city li:first-child {
+    background-color: #00000025;
+}
+
 .selected-city li:hover {
     box-shadow: inset 0px 0px 3px 1px #000;
 }
@@ -208,6 +214,7 @@ body {
     background-color: #0000004d;
     box-shadow: 0px 1px 2px 1px #000000b3;
     position: relative;
+    margin-top: 20px;
 }
 
 .input-search-city {
@@ -253,30 +260,23 @@ body {
     height: 100%;
 }
 
-/* checkbox =================================== */
-
-.checkbox-hidden {
-    display: none;
-}
-
 .day-5,
 .city-list,
 .three-hours {
     padding-right: 50px;
 }
 
-
-/* =========================  */
-
+/* weather-hour =========================  */
 .weather-hour {
     margin-bottom: 20px;
 }
 
 .hour-date {
     padding: 10px 20px;
-    margin: 20px 0 10px;
+    margin: 25px 0 10px;
     border-radius: 30px;
     box-shadow: inset 0px 0px 3px 1px #000;
+    background-color: #00000030;
     font-size: 46px;
 }
 
@@ -285,14 +285,12 @@ body {
 }
 
 .three-hours-data {
-    position: absolute;
-    height: 1px;
-    top: -200px;
+    visibility: hidden;
+    height: 0;
     overflow: hidden;
 }
 
 .three-hours-data.fill {
-    position: relative;
-    top: 0;
+    visibility: visible;
     height: auto;
 }

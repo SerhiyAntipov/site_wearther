@@ -126,13 +126,13 @@ body {
 .city-list,
 .day-5,
 .three-hours {
-    background: url(../img/burger_01.png) center right 10px no-repeat, #0000004d;
+    background: url(../img/icon_menu.svg) center right 10px no-repeat, #0000004d;
 }
 
 .city-list.close-menu,
 .day-5.close-menu,
 .three-hours.close-menu {
-    background: url(../img/burger_02.png) center right 10px no-repeat, #0000004d;
+    background: url(../img/icon_menu_close.svg) center right 10px no-repeat, #0000004d;
 }
 
 .your-cities span {
@@ -263,7 +263,7 @@ body {
 .day-5,
 .city-list,
 .three-hours {
-    padding-right: 50px;
+    padding-right: 40px;
 }
 
 /* weather-hour =========================  */

@@ -126,13 +126,27 @@ body {
 .city-list,
 .day-5,
 .three-hours {
-    background: url(../img/icon_menu.svg) center right 10px no-repeat, #0000004d;
+    background-color: #0000004d;
+    position: relative;
 }
 
-.city-list.close-menu,
-.day-5.close-menu,
-.three-hours.close-menu {
-    background: url(../img/icon_menu_close.svg) center right 10px no-repeat, #0000004d;
+.city-list::after,
+.day-5::after,
+.three-hours::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    display: block;
+    height: 32px;
+    width: 32px;
+    background: url(../img/icon_menu_circle.svg) center center no-repeat;
+}
+
+.city-list.close-menu::after,
+.day-5.close-menu::after,
+.three-hours.close-menu::after {
+    transform: rotate(90deg);
 }
 
 .your-cities span {

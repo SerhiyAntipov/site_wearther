@@ -20,7 +20,7 @@ body {
 
 .wrapper-weather {
     margin: 0 auto;
-    max-width: 480px;
+    max-width: 420px;
     min-width: 320px;
     text-align: center;
     font-size: 30px;
@@ -291,7 +291,7 @@ body {
     border-radius: 30px;
     box-shadow: inset 0px 0px 3px 1px #000;
     background-color: #00000030;
-    font-size: 42px;
+    font-size: 46px;
 }
 
 .hour-time img {
@@ -307,4 +307,16 @@ body {
 .three-hours-data.fill {
     visibility: visible;
     height: auto;
+}
+
+@media only screen and (max-width: 380px) {
+    .hour-date {
+        font-size: 42px;
+    }
+}
+
+@media only screen and (max-width: 359px) {
+    .hour-date {
+        font-size: 36px;
+    }
 }

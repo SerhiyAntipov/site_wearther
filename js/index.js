@@ -215,7 +215,8 @@ function fiveDayWeatherForecast() {
     let hourlyWeatherForecast = `<p class="city-name">${weatherHour.city.name}  ${weatherHour.city.country} </p>`;
     let wiewDate = "2019-11-12"
 
-    weatherHour.list.forEach(function (data) {
+    weatherHour.list.forEach( function (data) {
+        console.log(data)
         let date = data.dt_txt.slice(0, 10);
         let time = data.dt_txt.slice(10, 16);
         if (date !== wiewDate) {

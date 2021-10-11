@@ -28,7 +28,7 @@ if (localStorage.getItem("city-name") === null || localStorage["city-name"] === 
 // get weather =========================
 function xhttpRequesrtWeather(inputSearchCityValue) {
     let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.response);
             callbackWeather(response, inputSearchCityValue)
@@ -90,11 +90,11 @@ function fillCityWeather(response) {
 }
 
 // search city ========================
-btnGetWeather.addEventListener('click', function () {
+btnGetWeather.addEventListener('click', function() {
     searchCity()
 })
 
-inputSearchCity.onkeypress = function (event) {
+inputSearchCity.onkeypress = function(event) {
     if (event.charCode == 13) {
         searchCity()
     }
@@ -108,7 +108,7 @@ function searchCity() {
 }
 
 // visible/hide city List ============
-cityList.addEventListener('click', function () {
+cityList.addEventListener('click', function() {
     let listSelectedCities = document.querySelector('.selected-city');
     listSelectedCities.classList.toggle('visible-city-list');
     cityList.classList.toggle('close-menu');
@@ -131,14 +131,14 @@ function creationCitylist() {
 // select city ===================
 function selectCities() {
     yourCities = document.querySelectorAll('.your-cities');
-    yourCities.forEach(function (data) {
-        data.addEventListener('click', function (event) {
-            if (event.toElement.localName == 'li' && event.toElement.localName != 'span') {
+    yourCities.forEach(function(data) {
+        data.addEventListener('click', function(event) {
+            if (event.currentTarget.localName == 'li' && event.target.localName != 'span') {
                 let tempCityName = event.target.firstChild.textContent.toLowerCase();
                 xhttpRequesrtWeather(tempCityName);
                 firstElementlocalStorage(tempCityName)
-            } else if (event.toElement.localName == 'span') {
-                let dellCity = event.toElement.parentElement.textContent.toLowerCase()
+            } else if (event.target.localName == 'span') {
+                let dellCity = event.currentTarget.textContent.toLowerCase()
                 dellSelectCities(dellCity, event)
             }
         })
@@ -146,7 +146,7 @@ function selectCities() {
 }
 
 // New Weather ==================
-newWeather.addEventListener('click', function () {
+newWeather.addEventListener('click', function() {
     let dataCityName = JSON.parse(localStorage["city-name"]);
     xhttpRequesrtWeather(dataCityName[0]);
 })
@@ -154,7 +154,7 @@ newWeather.addEventListener('click', function () {
 // moving the selected city to the first element localStorage
 function firstElementlocalStorage(tempCityName) {
     let tempLocalStorage = JSON.parse(localStorage["city-name"]);
-    tempLocalStorage.forEach(function (data, i) {
+    tempLocalStorage.forEach(function(data, i) {
         if (data == tempCityName) {
             tempLocalStorage.unshift(tempLocalStorage.splice(i, 1)[0]);
         }
@@ -166,7 +166,7 @@ function firstElementlocalStorage(tempCityName) {
 function dellSelectCities(dellCity, event) {
     event.target.parentElement.remove()
     let tempLocalStorage = JSON.parse(localStorage["city-name"])
-    tempLocalStorage.forEach(function (data, i) {
+    tempLocalStorage.forEach(function(data, i) {
         if (data == dellCity) {
             tempLocalStorage.splice(i, 1);
             if (i == 0 && tempLocalStorage.length > 0) {
@@ -180,19 +180,19 @@ function dellSelectCities(dellCity, event) {
 // get weather 5 day ====================
 function fetchWeatherHour(cityId) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&appid=0bf66710f118cd8dbd8d4055849f69aa`)
-        .then(function (response) {
+        .then(function(response) {
             return response.json()
         })
-        .then(function (response) {
+        .then(function(response) {
             weatherHour = response;
             fiveDayWeatherForecast()
         })
-        .catch(function () {
+        .catch(function() {
             console.log('the database did not load')
         });
 }
 
-day5.addEventListener('click', function () {
+day5.addEventListener('click', function() {
     if (weatherHour.cod == 200) {
         fiveDayWeatherForecast()
         document.querySelector('.three-hours-data').classList.toggle('fill');
@@ -201,7 +201,7 @@ day5.addEventListener('click', function () {
     }
 })
 
-threeHours.addEventListener('click', function () {
+threeHours.addEventListener('click', function() {
     if (weatherHour.cod == 200) {
         fiveDayWeatherForecast()
         document.querySelector('.three-hours-data').classList.toggle('fill');
@@ -215,7 +215,7 @@ function fiveDayWeatherForecast() {
     let hourlyWeatherForecast = `<p class="city-name">${weatherHour.city.name}  ${weatherHour.city.country} </p>`;
     let wiewDate = "2019-11-12"
 
-    weatherHour.list.forEach( function (data) {
+    weatherHour.list.forEach(function(data) {
         console.log(data)
         let date = data.dt_txt.slice(0, 10);
         let time = data.dt_txt.slice(10, 16);
